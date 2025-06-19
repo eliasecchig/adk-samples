@@ -30,7 +30,7 @@ Here's a screenshot of the application in action:
 This project adapts concepts from the [Gemini FullStack LangGraph Quickstart](https://github.com/google-gemini/gemini-fullstack-langgraph-quickstart) for the frontend app. 
 
 ## 🚀 Getting Started: From Zero to Running Agent in 1 Minute
-**Prerequisites:** <strong><a href="https://www.python.org/downloads/">Python 3.10+</a></strong>, <strong><a href="https://nodejs.org/">Node.js</a></strong> (which includes <code>npm</code>), <strong><a href="https://github.com/astral-sh/uv">uv</a></strong>
+**Prerequisites:** **[Python 3.10+](https://www.python.org/downloads/)**, **[Node.js](https://nodejs.org/)**, **[uv](https://github.com/astral-sh/uv)**
 
 You have two options to get started. Choose the one that best fits your setup:
 
