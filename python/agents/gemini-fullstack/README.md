@@ -24,21 +24,54 @@ The **Gemini Fullstack Agent Development Kit (ADK) Quickstart** is a production-
   </tbody>
 </table>
 
-<img src="https://github.com/GoogleCloudPlatform/agent-starter-pack/blob/main/docs/images/adk_gemini_fullstack_preview.png?raw=true" alt="Gemini Fullstack ADK Preview">
+Here's a screenshot of the application in action:
+<img src="../../docs/images/adk_gemini_fullstack_preview.png" alt="Gemini Fullstack ADK Preview">
 
 This project adapts concepts from the [Gemini FullStack LangGraph Quickstart](https://github.com/google-gemini/gemini-fullstack-langgraph-quickstart) for the frontend app. 
 
 ## 🚀 Getting Started: From Zero to Running Agent in 1 Minute
+**Prerequisites:** <strong><a href="https://www.python.org/downloads/">Python 3.10+</a></strong>, <strong><a href="https://nodejs.org/">Node.js</a></strong> (which includes <code>npm</code>), <strong><a href="https://github.com/astral-sh/uv">uv</a></strong>
 
-**Prerequisites:**
+You have two options to get started. Choose the one that best fits your setup:
 
-* **[Python 3.10+](https://www.python.org/downloads/)**
-* **[Node.js and npm](https://nodejs.org/)**
-* **[Google Cloud SDK](https://cloud.google.com/sdk/docs/install)**
+*   A. **[Google AI Studio](#a-google-ai-studio)**: Choose this path if you want to use a **Google AI Studio API key**. This method involves cloning the sample repository.
+*   B. **[Google Cloud Vertex AI](#b-google-cloud-vertex-ai)**: Choose this path if you want to use an existing **Google Cloud project** for authentication. This method generates a new, prod-ready project using the [agent-starter-pack](https://goo.gle/agent-starter-pack).
 
-### Step 1: Create Your Agent Project
+---
 
+### A. Google AI Studio
 
+You'll need a **[Google AI Studio API Key](https://aistudio.google.com/app/apikey)**.
+
+**Step 1: Clone Repository**
+Clone the repository and `cd` into the project directory.
+```bash
+git clone https://github.com/google/adk-samples.git
+cd adk-samples/python/agents/gemini-fullstack
+```
+
+**Step 2: Set Environment Variables**
+Export your API key as an environment variable.
+```bash
+export GOOGLE_GENAI_USE_VERTEXAI=FALSE
+export GOOGLE_API_KEY=YOUR_AI_STUDIO_API_KEY
+```
+> **Note:** Replace `YOUR_AI_STUDIO_API_KEY` with your actual key. These variables are only set for your current terminal session. If you open a new terminal, you will need to export them again.
+
+**Step 3: Install & Run**
+From the `gemini-fullstack` directory, install dependencies and start the servers.
+```bash
+make install && make dev
+```
+Your agent is now running at `http://localhost:5173`.
+
+---
+
+### B. Google Cloud Vertex AI
+
+You'll also need: **[Google Cloud SDK](https://cloud.google.com/sdk/docs/install)** and a **Google Cloud Project** with the **Vertex AI API** enabled.
+
+**Step 1: Create Project from Template**
 This command uses the [Agent Starter Pack](goo.gle/agent-starter-pack) to create a new directory (`my-fullstack-agent`) with all the necessary code.
 ```bash
 # Create and activate a virtual environment
@@ -48,58 +81,27 @@ python -m venv .venv && source .venv/bin/activate # On Windows: .venv\Scripts\ac
 pip install --upgrade agent-starter-pack
 agent-starter-pack create my-fullstack-agent -a adk_gemini_fullstack
 ```
-
 <details>
 <summary>⚡️ Alternative: Using uv</summary>
 
 If you have [`uv`](https://github.com/astral-sh/uv) installed, you can create and set up your project with a single command:
-
 ```bash
 uvx agent-starter-pack create my-fullstack-agent -a adk_gemini_fullstack
 ```
 This command handles creating the project without needing to pre-install the package into a virtual environment.
-
 </details>
 
 You'll be prompted to select a deployment option (Agent Engine or Cloud Run) and verify your Google Cloud credentials.
 
-### Step 2: Install Dependencies & Run the Agent
-
-Now, navigate into your new project, install the dependencies, and start the servers with a single command.
-
+**Step 2: Install & Run**
+Navigate into your **newly created project folder**, then install dependencies and start the servers.
 ```bash
 cd my-fullstack-agent && make install && make dev
 ```
+Your agent is now running at `http://localhost:5173`.
 
-Your agent should now be running!
-*   Backend API: `http://localhost:8000`
-*   Frontend UI: `http://localhost:5173`
-
-## 🔑 Using Google AI Studio API Keys
-
-If you prefer to use [AI Studio](https://aistudio.google.com/) API keys:
-
-1. Create a `.env` file in the `/app` directory with:
-   ```
-   GOOGLE_GENAI_USE_VERTEXAI=FALSE
-   GOOGLE_API_KEY=YOUR_AI_STUDIO_API_KEY
-   ```
-   
-   <details>
-   <summary>Or export the variables directly</summary>
-   
-   ```bash
-   export GOOGLE_GENAI_USE_VERTEXAI=FALSE
-   export GOOGLE_API_KEY=YOUR_AI_STUDIO_API_KEY
-   ```
-   </details>
-   
-
-2. Replace `YOUR_AI_STUDIO_API_KEY` with your actual key from [AI Studio](https://aistudio.google.com/app/apikey)
-
-3. This setting will use your API key instead of the default Vertex AI configuration.
-
-## ☁️ Deployment
+## ☁️ Cloud Deployment
+> **Note:** The cloud deployment instructions below apply only if you chose the **Vertex AI (Google Cloud Project)** option.
 
 You can quickly deploy your agent to a **development environment** on Google Cloud. You can deploy your latest code at any time with:
 
@@ -117,7 +119,7 @@ The backend agent, defined in `app/agent.py`, follows a sophisticated workflow t
 
 The following diagram illustrates the agent's architecture and workflow:
 
-![ADK Gemini Fullstack Architecture](https://github.com/GoogleCloudPlatform/agent-starter-pack/blob/main/docs/images/adk_gemini_fullstack_architecture.png?raw=true)
+![ADK Gemini Fullstack Architecture](../../docs/images/adk_gemini_fullstack_architecture.png)
 
 This process is broken into two main phases:
 
