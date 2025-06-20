@@ -28,7 +28,7 @@ The key features of the Academic Research include:
 
 This diagram shows the detailed architecture of the agents and tools used
 to implement this workflow.
-<img src="academic-researcher.png" alt="academic researcher" width="800"/>
+<img src="academic-research.svg" alt="academic researcher" width="800"/>
 
 ## Setup and Installation
 
