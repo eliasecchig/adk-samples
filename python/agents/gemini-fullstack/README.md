@@ -75,7 +75,7 @@ Your agent is now running at `http://localhost:5173`.
 You'll also need: **[Google Cloud SDK](https://cloud.google.com/sdk/docs/install)** and a **Google Cloud Project** with the **Vertex AI API** enabled.
 
 #### Step 1: Create Project from Template
-This command uses the [Agent Starter Pack](goo.gle/agent-starter-pack) to create a new directory (`my-fullstack-agent`) with all the necessary code.
+This command uses the [Agent Starter Pack](https://goo.gle/agent-starter-pack) to create a new directory (`my-fullstack-agent`) with all the necessary code.
 ```bash
 # Create and activate a virtual environment
 python -m venv .venv && source .venv/bin/activate # On Windows: .venv\Scripts\activate
