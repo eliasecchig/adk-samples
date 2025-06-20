@@ -25,7 +25,8 @@ The **Gemini Fullstack Agent Development Kit (ADK) Quickstart** is a production-
 </table>
 
 Here is the agent in action:
-<img src="https://github.com/GoogleCloudPlatform/agent-starter-pack/blob/main/docs/images/adk_gemini_fullstack.gif?raw=true" width="90%" alt="Gemini Fullstack ADK Preview">
+
+<img src="https://github.com/GoogleCloudPlatform/agent-starter-pack/blob/main/docs/images/adk_gemini_fullstack.gif?raw=true" width="80%" alt="Gemini Fullstack ADK Preview">
 
 This project adapts concepts from the [Gemini FullStack LangGraph Quickstart](https://github.com/google-gemini/gemini-fullstack-langgraph-quickstart) for the frontend app. 
 
