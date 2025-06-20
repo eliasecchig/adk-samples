@@ -121,7 +121,7 @@ For robust, **production-ready deployments** with automated CI/CD, please follow
 | **Interaction Type** | Workflow |
 | **Complexity** | Advanced |
 | **Agent Type** | Multi Agent |
-| **Components** | Multi-agent, Function calling, Web search, React frontend, FastAPI backend, Human-in-the-Loop |
+| **Components** | Multi-agent, Function calling, Web search, React frontend, Human-in-the-Loop |
 | **Vertical** | Horizontal |
 
 ## How the Agent Thinks: A Two-Phase Workflow
