@@ -104,6 +104,10 @@ dev-stop:
 # web server down with it instead of leaving a stack that only looks alive.
 # (`wait -n` would be the one-liner, but /bin/sh here is bash 3.2.)
 dev: dev-preflight
+	@echo ""
+	@echo ">> starting the dev stack — ready in ~30s (a first run installs deps first, so longer)"
+	@echo ">> until the backend binds :$(BACKEND_PORT), [web] logs 'proxy error ... ECONNREFUSED' — expected, it retries"
+	@echo ""
 	@trap 'kill 0' INT TERM EXIT; \
 	{ $(MAKE) --no-print-directory $(DEV_BACKEND_TARGET) 2>&1 | sed -u 's/^/[backend] /'; echo "[backend] exited — stopping dev stack"; kill 0; } & \
 	{ $(MAKE) --no-print-directory dev-web               2>&1 | sed -u 's/^/[web]     /'; echo "[web]     exited — stopping dev stack"; kill 0; } & \
@@ -120,7 +124,16 @@ dev-ready:
 	while [ $$i -lt 600 ]; do \
 	  if curl -s -o /dev/null http://127.0.0.1:$(BACKEND_PORT) && curl -s -o /dev/null http://127.0.0.1:$(WEB_PORT); then \
 	    echo ""; \
-	    echo ">> ready — open http://localhost:$(WEB_PORT)  (backend http://127.0.0.1:$(BACKEND_PORT))"; \
+	    echo "=================================================================="; \
+	    echo ""; \
+	    echo "   READY — open the web UI:"; \
+	    echo ""; \
+	    echo "       http://localhost:$(WEB_PORT)"; \
+	    echo ""; \
+	    echo "   backend   http://127.0.0.1:$(BACKEND_PORT)"; \
+	    echo "   stop      Ctrl-C"; \
+	    echo ""; \
+	    echo "=================================================================="; \
 	    echo ""; \
 	    exit 0; \
 	  fi; \
