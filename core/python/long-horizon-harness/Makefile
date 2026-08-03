@@ -1,5 +1,5 @@
 .PHONY: dev dev-backend dev-web dev-local dev-backend-local dev-sandbox dev-backend-sandbox \
-        dev-preflight dev-ready dev-stop \
+        dev-preflight dev-ready dev-web-wait dev-stop \
         setup build-web deploy deploy-web deploy-backend deploy-all destroy commands-catalog help
 
 BACKEND_PORT             ?= 8001
@@ -106,11 +106,11 @@ dev-stop:
 dev: dev-preflight
 	@echo ""
 	@echo ">> starting the dev stack — ready in ~30s (a first run installs deps first, so longer)"
-	@echo ">> until the backend binds :$(BACKEND_PORT), [web] logs 'proxy error ... ECONNREFUSED' — expected, it retries"
+	@echo ">> the web UI starts once the backend is listening on :$(BACKEND_PORT)"
 	@echo ""
 	@trap 'kill 0' INT TERM EXIT; \
 	{ $(MAKE) --no-print-directory $(DEV_BACKEND_TARGET) 2>&1 | sed -u 's/^/[backend] /'; echo "[backend] exited — stopping dev stack"; kill 0; } & \
-	{ $(MAKE) --no-print-directory dev-web               2>&1 | sed -u 's/^/[web]     /'; echo "[web]     exited — stopping dev stack"; kill 0; } & \
+	{ $(MAKE) --no-print-directory dev-web-wait          2>&1 | sed -u 's/^/[web]     /'; echo "[web]     exited — stopping dev stack"; kill 0; } & \
 	$(MAKE) --no-print-directory dev-ready & \
 	wait
 
@@ -139,6 +139,19 @@ dev-ready:
 	  fi; \
 	  i=$$((i+1)); sleep 1; \
 	done
+
+# vite proxies /.well-known, /a2a and /lha to the backend from the moment it
+# boots, so starting it first buries the terminal in ECONNREFUSED stack traces
+# until uvicorn binds. npm install still runs in parallel (the prerequisite);
+# only the server start waits.
+dev-web-wait: web/node_modules
+	@if command -v curl >/dev/null 2>&1; then \
+	  i=0; \
+	  while [ $$i -lt 600 ] && ! curl -s -o /dev/null http://127.0.0.1:$(BACKEND_PORT); do \
+	    i=$$((i+1)); sleep 1; \
+	  done; \
+	fi; \
+	$(MAKE) --no-print-directory dev-web
 
 # .env wins; the -local/-sandbox variants below force a value instead.
 DEV_BACKEND_ENV ?= $${LHA_ENVIRONMENT_BACKEND:-$(LHA_ENVIRONMENT_BACKEND)}
